@@ -11,7 +11,7 @@
 using namespace viper;
 
 // ==========================================
-// 🎓 论文实验配置 (Experimental Setup)
+// 🎓 论文实验配置
 // ==========================================
 const std::string PMEM_PATH = "/pmem0/viper_bench"; 
 const size_t NUM_KEYS = 1000000;   
@@ -31,8 +31,7 @@ int main() {
     // [Step 1] 初始化数据库
     auto viper = Viper<uint64_t, uint64_t>::create(PMEM_PATH, 2UL * 1024 * 1024 * 1024);
 
-    // 🔑【关键修改】获取 Client 对象！
-    // 所有的 put/get 操作必须通过 client 进行，而不是 viper 指针
+    // 🔑【关键修改】获取 Client 对象
     auto client = viper->get_client();
 
     // [Step 2] 准备数据
@@ -49,7 +48,7 @@ int main() {
     auto start_ins = std::chrono::high_resolution_clock::now();
     
     for (size_t i = 0; i < NUM_KEYS; ++i) {
-        // ✅ 修正：使用 client.put (小写)
+        // ✅ 使用 client.put
         client.put(keys[i], keys[i] + 2026); 
     }
     
@@ -69,7 +68,7 @@ int main() {
     uint64_t found_cnt = 0;
     uint64_t val;
     for (size_t i = 0; i < NUM_OPS; ++i) {
-        // ✅ 修正：使用 client.get (小写)
+        // ✅ 使用 client.get
         if (client.get(keys[i % NUM_OPS], &val)) {
             found_cnt++;
         }
