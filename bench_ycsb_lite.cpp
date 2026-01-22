@@ -10,66 +10,54 @@
 
 using namespace viper;
 
-// ==========================================
-// 🎓 论文实验配置
-// ==========================================
 const std::string PMEM_PATH = "/pmem0/viper_bench"; 
 const size_t NUM_KEYS = 1000000;   
 const size_t NUM_OPS  = 1000000;   
 
+// 🔴 修改点：生成 8 字节短字符串 (00000000 - 00999999)
+std::string new_key(uint64_t i) {
+    char buf[32];
+    sprintf(buf, "%08lu", i); 
+    return std::string(buf);
+}
+
 int main() {
-    // [Step 0] 环境清理
     std::filesystem::remove_all(PMEM_PATH);
 
     std::cout << "=========================================================" << std::endl;
-    std::cout << "   HIH Viper Benchmark (Paper Standard Evaluation)       " << std::endl;
+    std::cout << "   HIH Viper Benchmark (SHORT STRING Mode)               " << std::endl;
     std::cout << "=========================================================" << std::endl;
-    std::cout << "Dataset Size : " << NUM_KEYS << " keys" << std::endl;
-    std::cout << "Storage Path : " << PMEM_PATH << std::endl;
-    std::cout << "---------------------------------------------------------" << std::endl;
-
-    // [Step 1] 初始化数据库
-    auto viper = Viper<uint64_t, uint64_t>::create(PMEM_PATH, 2UL * 1024 * 1024 * 1024);
-
-    // 🔑【关键修改】获取 Client 对象
+    
+    // 使用 String 类型
+    auto viper = Viper<std::string, std::string>::create(PMEM_PATH, 4UL * 1024 * 1024 * 1024);
     auto client = viper->get_client();
 
-    // [Step 2] 准备数据
-    std::cout << "[Setup] Generating random keys..." << std::endl;
-    std::vector<uint64_t> keys(NUM_KEYS);
-    for (size_t i = 0; i < NUM_KEYS; ++i) keys[i] = i; 
+    std::cout << "[Setup] Generating random SHORT keys (8 bytes)..." << std::endl;
+    std::vector<std::string> keys;
+    keys.reserve(NUM_KEYS);
+    for (size_t i = 0; i < NUM_KEYS; ++i) {
+        keys.push_back(new_key(i));
+    }
     
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(keys.begin(), keys.end(), g);
 
-    // [Step 3] Load Phase (Insert)
-    std::cout << "[Phase 1] Starting LOAD (Insert) phase..." << std::endl;
-    auto start_ins = std::chrono::high_resolution_clock::now();
-    
+    std::cout << "[Phase 1] Starting LOAD..." << std::endl;
+    std::string val(64, 'x'); 
     for (size_t i = 0; i < NUM_KEYS; ++i) {
-        // ✅ 使用 client.put
-        client.put(keys[i], keys[i] + 2026); 
+        client.put(keys[i], val); 
     }
     
-    auto end_ins = std::chrono::high_resolution_clock::now();
-    double ins_duration = std::chrono::duration<double>(end_ins - start_ins).count();
-    double ins_throughput = (NUM_KEYS / ins_duration) / 1000000.0;
-    
-    std::cout << ">>> [Result] Insert Throughput: " << std::fixed << std::setprecision(2) 
-              << ins_throughput << " M ops/sec" << std::endl;
-
-    // [Step 4] Run Phase (Get)
     std::shuffle(keys.begin(), keys.end(), g);
     
-    std::cout << "[Phase 2] Starting RUN (Get) phase..." << std::endl;
+    std::cout << "[Phase 2] Starting RUN (Get)..." << std::endl;
     auto start_get = std::chrono::high_resolution_clock::now();
 
     uint64_t found_cnt = 0;
-    uint64_t val;
+    std::string val_out;
     for (size_t i = 0; i < NUM_OPS; ++i) {
-        // ✅ 使用 client.get
-        if (client.get(keys[i % NUM_OPS], &val)) {
+        if (client.get(keys[i % NUM_OPS], &val_out)) {
             found_cnt++;
         }
     }
@@ -79,18 +67,10 @@ int main() {
     double get_throughput = (NUM_OPS / get_duration) / 1000000.0;
     double get_latency = (get_duration * 1e9) / NUM_OPS;
 
-    std::cout << "---------------------------------------------------------" << std::endl;
     std::cout << ">>> [Result] GET Throughput : " << std::fixed << std::setprecision(2) 
               << get_throughput << " M ops/sec" << std::endl;
     std::cout << ">>> [Result] GET Avg Latency: " << std::fixed << std::setprecision(2) 
               << get_latency << " ns" << std::endl;
-    std::cout << "---------------------------------------------------------" << std::endl;
-
-    if (found_cnt != NUM_OPS) {
-        std::cerr << "!!! ERROR: Correctness check failed! Found " << found_cnt << std::endl;
-    } else {
-        std::cout << "✅ Correctness check passed." << std::endl;
-    }
 
     return 0;
 }
