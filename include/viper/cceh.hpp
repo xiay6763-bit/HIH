@@ -203,28 +203,53 @@ constexpr uint64_t EXCLUSIVE_LOCK = -1;
     }
 };*/
 
-// 定义一个标记位，利用 64 位偏移量的最高位来标记“内联状态”
+// ==========================================
+// 论文对比开关：
+// 1. 如果想测【原版 Viper】，请把下面这行注释掉： // #define ENABLE_INLINE_OPT
+// 2. 如果想测【你的改进版】，请取消注释： #define ENABLE_INLINE_OPT
+// ==========================================
+//#define ENABLE_INLINE_OPT  <--哪怕现在注释掉它，先测原版！
+
+
+// 定义标记位 (仅改进版需要，但放外面也没事)
 static constexpr uint64_t INLINE_BIT = 1ul << 63;
 
 struct Pair {
+#ifdef ENABLE_INLINE_OPT
+    // ================= [创新点一：改进版结构] =================
     union {
-        IndexK key;           // 原有逻辑：存储哈希指纹
-        char inline_key[8];   // 创新点一：直接存储 8 字节以内的原始 Key
+        IndexK key;           // 存哈希
+        char inline_key[8];   // 存原始 Key (内联)
     };
-    IndexV value;             // 存储 PMem 数据的物理偏移量
+#else
+    // ================= [Baseline：原版结构] =================
+    IndexK key;               // 只存哈希，必须去 PMem 查 Key
+#endif
 
+    IndexV value;             // PMem 地址
+
+    // 默认构造函数
     Pair(void) : key{INVALID}, value{IndexV::Tombstone()} {}
-    Pair(IndexK _key, IndexV _value) : key{_key}, value{_value} {}
 
-    // 辅助函数：快速判断当前槽位是否是内联数据
-    bool is_inline() const {
-        return (value.offset & INLINE_BIT) != 0;
+    // 有参构造函数
+    Pair(IndexK _key, IndexV _value) : value{_value} {
+        key = _key; // 无论是 union 还是普通 struct，这句都能跑
     }
 
+    // 赋值运算符
     Pair& operator=(const Pair& other) {
         key = other.key;
         value = other.value;
         return *this;
+    }
+
+    // 辅助函数：判断是否内联
+    bool is_inline() const {
+#ifdef ENABLE_INLINE_OPT
+        return (value.offset & INLINE_BIT) != 0;
+#else
+        return false; // 原版永远没有内联数据
+#endif
     }
 };
 
@@ -425,27 +450,58 @@ int Segment<KeyType>::Insert(const KeyType& key, IndexV value, size_t loc, size_
     } */
 
     if (CAS(&_[slot].key, &LOCK, SENTINEL)) {
-                old_entry->offset = _[slot].value.offset;
-                
-                // 【创新点一核心逻辑】
-                // 如果 Key 不是字符串，且大小不超过 8 字节（例如 uint64_t），则进行内联
-                if constexpr (!std::is_same_v<KeyType, std::string> && sizeof(KeyType) <= 8) {
-                    // 清空内存并拷贝 Key
-                    std::memset(_[slot].inline_key, 0, 8);
-                    std::memcpy(_[slot].inline_key, &key, sizeof(KeyType));
-                    
-                    // 将 PMem 地址的最高位设为 1，标记为“内联”
-                    _[slot].value.offset = value.offset | INLINE_BIT; 
-                } else {
-                    // 原有逻辑：存入指纹和原始地址
-                    _[slot].value = value;
-                    _[slot].key = key_checker;
-                }
-                
-                persist(&_[slot], sizeof(Pair));
-                ret = 0;
-                break;
-            }
+    // 记录旧的 offset (用于返回)
+    old_entry->offset = _[slot].value.offset;
+
+#ifdef ENABLE_INLINE_OPT
+    // ==========================================================
+    // 【改进版逻辑 (开启优化)】
+    // ==========================================================
+    
+    // 1. 优先检查是否是 Tombstone (删除操作)
+    // 如果是删除操作，无论 Key 大小，都必须按标准方式标记 INVALID
+    if (value.is_tombstone()) {
+        _[slot].value = value;
+        _[slot].key = INVALID; // 标记该槽位无效
+    }
+    // 2. 只有非 Tombstone 且 Key 很小的时候，才走内联优化
+    else if constexpr (!std::is_same_v<KeyType, std::string> && sizeof(KeyType) <= 8) {
+        // 清空内存 (防止脏数据)
+        std::memset(_[slot].inline_key, 0, 8);
+        // 拷贝 Key
+        std::memcpy(_[slot].inline_key, &key, sizeof(KeyType));
+        
+        // 写入 Value，并打上 INLINE 标记
+        _[slot].value = value;
+        _[slot].value.offset |= INLINE_BIT; 
+    } 
+    // 3. 大 Key 情况：走原有逻辑
+    else {
+        _[slot].value = value;
+        _[slot].key = key_checker; // 存入指纹
+    }
+
+#else
+    // ==========================================================
+    // 【原版逻辑 (Baseline)】 
+    // ==========================================================
+    _[slot].value = value;
+    
+    if (value.is_tombstone()) {
+        // Inserted tombstone
+        _[slot].key = INVALID;
+    }
+    else {
+        // Normal insert
+        _[slot].key = key_checker;
+    }
+#endif
+
+    // 持久化并退出
+    persist(&_[slot], sizeof(Pair));
+    ret = 0;
+    break;
+}
     
     else if (ATOMIC_LOAD(&_[slot].key) == key_checker) {
         if constexpr (using_fp_) {
@@ -670,30 +726,48 @@ IndexV CCEH<KeyType>::Get(const KeyType& key, KeyCheckFn key_check_fn) {
     }
 
     for (unsigned i = 0; i < kNumPairPerCacheLine * kNumCacheLine; ++i) {
-        auto slot = (loc+i) % Segment<KeyType>::kNumSlot;
+        auto slot = (loc + i) % Segment<KeyType>::kNumSlot;
+        auto& entry = segment->_[slot]; // 方便引用
 
-    // 创新点一加速逻辑
-    auto& entry = segment->_[slot]; // 方便引用
-    if (entry.is_inline()) {
-        // 如果是内联键，直接在 DRAM 里比较，不用去 PMem
-        if (std::memcmp(entry.inline_key, &key, sizeof(KeyType)) == 0) {
-            IndexV offset = entry.value;
-            offset.offset &= ~INLINE_BIT; // 还原真实地址（去掉最高位标记）
-            segment->sema.fetch_sub(1);
-            return offset; // 直接返回！成功跳过后面的 key_check_fn
+#ifdef ENABLE_INLINE_OPT
+        // ==========================================================
+        // 【改进版逻辑 (开启优化)】
+        // ==========================================================
+        if (entry.is_inline()) {
+            // 发现内联数据！直接在 DRAM 里比较 Key，完全跳过 PMem 访问
+            // 注意：仅当 Key 类型 <= 8 字节时才可能内联
+            if constexpr (!std::is_same_v<KeyType, std::string> && sizeof(KeyType) <= 8) {
+                if (std::memcmp(entry.inline_key, &key, sizeof(KeyType)) == 0) {
+                    // 1. 内存匹配成功
+                    IndexV ret = entry.value;
+                    
+                    // 2. 【关键】还原真实地址（去掉最高位的内联标记）
+                    ret.offset &= ~INLINE_BIT;
+                    
+                    // 3. 减少引用计数并直接返回
+                    segment->sema.fetch_sub(1);
+                    return ret;
+                }
+            }
+            // 如果是内联数据但 Key 不匹配，说明不是我们要找的，直接看下一个槽位
+            // (内联数据不走下面的哈希指纹检查)
+            continue;
         }
-        continue; // 如果内联键不匹配，继续看下一个槽位
-    }
+#endif
 
-        if (segment->_[slot].key == key_checker) {
-          if constexpr (using_fp_) {
-              const bool keys_match = key_check_fn(key, segment->_[slot].value);
-              if (!keys_match) continue;
-          }
+        // ==========================================================
+        // 【通用/原版逻辑】 
+        // (适用于：1. 未开启优化开关 2. 开启开关但遇到了大 Key)
+        // ==========================================================
+        if (entry.key == key_checker) {
+            if constexpr (using_fp_) {
+                const bool keys_match = key_check_fn(key, entry.value);
+                if (!keys_match) continue;
+            }
 
-          IndexV offset = segment->_[slot].value;
-          segment->sema.fetch_sub(1);
-          return offset;
+            IndexV offset = entry.value;
+            segment->sema.fetch_sub(1);
+            return offset;
         }
     }
 
