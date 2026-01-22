@@ -58,7 +58,8 @@ int main() {
     
     for (size_t i = 0; i < NUM_KEYS; ++i) {
         // Key 是随机顺序的，Value 随便填
-        viper->put(keys[i], keys[i] + 2026); 
+        // ✅ 修正：put -> Put
+        viper->Put(keys[i], keys[i] + 2026); 
     }
     
     auto end_ins = std::chrono::high_resolution_clock::now();
@@ -80,9 +81,10 @@ int main() {
     uint64_t found_cnt = 0;
     uint64_t val;
     for (size_t i = 0; i < NUM_OPS; ++i) {
-        // 执行查询：get(key, &val)
+        // 执行查询：Get(key, &val)
         // 使用 i % NUM_KEYS 确保我们查的 Key 都在库里，模拟 100% Hit Rate 的场景
-        if (viper->get(keys[i % NUM_OPS], &val)) {
+        // ✅ 修正：get -> Get
+        if (viper->Get(keys[i % NUM_OPS], &val)) {
             found_cnt++;
         }
     }
