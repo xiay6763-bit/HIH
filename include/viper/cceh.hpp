@@ -205,10 +205,10 @@ constexpr uint64_t EXCLUSIVE_LOCK = -1;
 
 // ==========================================
 // 论文对比开关：
-// 1. 如果想测【原版 Viper】，请把下面这行注释掉： // #define ENABLE_INLINE_OPT
-// 2. 如果想测【你的改进版】，请取消注释： #define ENABLE_INLINE_OPT
+#define ENABLE_INLINE_OPT
+#define ENABLE_INLINE_OPT
 // ==========================================
-//#define ENABLE_INLINE_OPT  <--哪怕现在注释掉它，先测原版！
+#define ENABLE_INLINE_OPT
 
 
 // 定义标记位 (仅改进版需要，但放外面也没事)

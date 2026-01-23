@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/bench_ycsb_zipf.dir/bench_ycsb_zipf.cpp.o -o bench_ycsb_zipf  -lpmem -lpthread 

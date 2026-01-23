@@ -1,3 +1,6 @@
+#include <unordered_map>
+#include <vector>
+#include <random>
 #pragma once
 
 #include <iostream>
@@ -359,6 +362,23 @@ class Viper {
     };
 
     class Client : public ReadOnlyClient {
+
+        // --- Innovation 2: Paper-Grade Hybrid Tiering ---
+        static constexpr size_t CACHE_SIZE = 262144;
+        struct CacheEntry {
+            char key_buf[16];   
+            V value;            
+            bool occupied = false;
+        };
+        std::vector<CacheEntry> dram_cache_{CACHE_SIZE};
+
+        void invalidate_cache(const K& key) {
+            size_t bucket = std::hash<K>{}(key) % CACHE_SIZE;
+            if (dram_cache_[bucket].occupied && 
+                memcmp(dram_cache_[bucket].key_buf, key.data(), std::min(key.size(), 16UL)) == 0) {
+                dram_cache_[bucket].occupied = false;
+            }
+        }
         friend class Viper<K, V>;
       public:
         bool put(const K& key, const V& value);

@@ -1,0 +1,4 @@
+/root/HIH/build/CMakeFiles/bench_ycsb_lite.dir
+/root/HIH/build/CMakeFiles/bench_ycsb_zipf.dir
+/root/HIH/build/CMakeFiles/edit_cache.dir
+/root/HIH/build/CMakeFiles/rebuild_cache.dir

@@ -68,3 +68,8 @@ target_compile_options(bench_ycsb_lite PRIVATE -march=native -mclwb -pthread)
 if (CMAKE_BUILD_TYPE MATCHES Release)
     target_compile_options(bench_ycsb_lite PRIVATE -O3 -Ofast -mtune=native)
 endif()
+# --- 增加 Zipfian 分布测试编译项 ---
+add_executable(bench_ycsb_zipf bench_ycsb_zipf.cpp)
+target_include_directories(bench_ycsb_zipf PRIVATE include)
+target_compile_options(bench_ycsb_zipf PRIVATE -march=native)
+target_link_libraries(bench_ycsb_zipf PRIVATE pmem pthread)
