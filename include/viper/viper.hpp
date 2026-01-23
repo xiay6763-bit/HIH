@@ -105,6 +105,7 @@ inline void pmem_persist(const void* addr, const size_t len) {
     char* addr_ptr = (char*) addr;
     char* end_ptr = addr_ptr + len;
     for (; addr_ptr < end_ptr; addr_ptr += CACHE_LINE_SIZE) {
+        // 优化：针对 R750 使用 _mm_clwb，写回缓存但保留副本，加速后续读取
         _mm_clwb(addr_ptr);
     }
     _mm_sfence();
@@ -365,6 +366,7 @@ class Viper {
 
         // --- Innovation 2: Paper-Grade Hybrid Tiering ---
         static constexpr size_t CACHE_SIZE = 262144;
+        // --- 创新点 2: Hybrid Tiering 数据结构定义 ---
         struct CacheEntry {
             char key_buf[16];   
             V value;            
@@ -1210,6 +1212,12 @@ bool Viper<K, V>::Client::put(const K& key, const V& value) {
  */
 template <typename K, typename V>
 bool Viper<K, V>::Client::get(const K& key, V* value) {
+    // --- 创新点 2 改动: DRAM Fast Path (热点数据直接从内存返回，绕过 PMem) ---
+    size_t bucket = std::hash<K>{}(key) % CACHE_SIZE;
+    if (dram_cache_[bucket].occupied && memcmp(dram_cache_[bucket].key_buf, key.data(), std::min(key.size(), 16UL)) == 0) {
+        *value = dram_cache_[bucket].value;
+        return true; 
+    }
     auto key_check_fn = [&](auto key, auto offset) {
         if constexpr (using_fp) { return this->viper_.check_key_equality(key, offset); }
         else { return cceh::CCEH<K>::dummy_key_check(key, offset); }
@@ -1221,6 +1229,10 @@ bool Viper<K, V>::Client::get(const K& key, V* value) {
             return false;
         }
         if (get_value_from_offset(kv_offset, value)) {
+            // --- 创新点 2 改动: Cache Promotion (将 PMem 读到的热数据搬运至 DRAM) ---
+            dram_cache_[bucket].occupied = true;
+            dram_cache_[bucket].value = *value;
+            memcpy(dram_cache_[bucket].key_buf, key.data(), std::min(key.size(), 16UL));
             return true;
         }
     }
