@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/root/HIH/include
+CXX_INCLUDES = -I/root/HIH/include -I/root/HIH/build/_deps/concurrentqueue-src
 
 CXX_FLAGS = -O3 -DNDEBUG -march=native -mclwb -pthread -O3 -Ofast -mtune=native
 

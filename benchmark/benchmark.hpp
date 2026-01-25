@@ -101,18 +101,18 @@ static constexpr char DB_FILE_DIR[] = "/scratch/lawrence.benson/viper-dev/data/"
 static constexpr char RESULT_FILE_DIR[] = "/scratch/lawrence.benson/viper-dev/results/";
 static constexpr char CONFIG_DIR[] = "/scratch/lawrence.benson/viper-dev/benchmark/config/";
 #elif defined(NVRAM02)
-static constexpr char VIPER_POOL_FILE[] = "/dev/dax0.0";
+static constexpr char VIPER_POOL_FILE[] = "/pmem0/viper_pool";
 static constexpr char DB_PMEM_DIR[] = "/mnt/nvram-viper";
 static constexpr char DB_FILE_DIR[] = "/scratch/viper";
 static constexpr char RESULT_FILE_DIR[] = "/hpi/fs00/home/lawrence.benson/clion/viper/results/";
 static constexpr char CONFIG_DIR[] = "/hpi/fs00/home/lawrence.benson/clion/viper/benchmark/config/";
 static constexpr size_t CPU_AFFINITY_OFFSET = 0;
 #else
-static constexpr char VIPER_POOL_FILE[] = "/dev/dax0.0";
+static constexpr char VIPER_POOL_FILE[] = "/pmem0/viper_pool";
 static constexpr char DB_PMEM_DIR[] = "/mnt/pmem/";
 static constexpr char DB_FILE_DIR[] = "/home/user/data/";
-static constexpr char RESULT_FILE_DIR[] = "/home/user/viper/results/";
-static constexpr char CONFIG_DIR[] = "/home/user/viper/benchmark/config/";
+static constexpr char RESULT_FILE_DIR[] = "/root/HIH/results/";
+static constexpr char CONFIG_DIR[] = "/root/HIH/benchmark/config/";
 static constexpr size_t CPU_AFFINITY_OFFSET = 0;  // 0 or #logical-cpu-per-socket
 //static_assert(false, "Need to set these variables for unknown host.");
 #endif

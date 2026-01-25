@@ -57,13 +57,33 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/HIH_Tiering
+CMAKE_SOURCE_DIR = /root/HIH
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/HIH_Tiering/build
+CMAKE_BINARY_DIR = /root/HIH/build
 
 #=============================================================================
 # Targets provided globally by CMake.
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /root/HIH/build && /usr/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+.PHONY : package/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /root/HIH/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /root/HIH/build/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+.PHONY : package_source/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -87,7 +107,7 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\" \"devel\" \"runtime\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
@@ -132,14 +152,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /root/HIH_Tiering/build && $(CMAKE_COMMAND) -E cmake_progress_start /root/HIH_Tiering/build/CMakeFiles /root/HIH_Tiering/build/_deps/concurrentqueue-build//CMakeFiles/progress.marks
-	cd /root/HIH_Tiering/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/HIH_Tiering/build/CMakeFiles 0
+	cd /root/HIH/build && $(CMAKE_COMMAND) -E cmake_progress_start /root/HIH/build/CMakeFiles /root/HIH/build/_deps/concurrentqueue-build//CMakeFiles/progress.marks
+	cd /root/HIH/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/HIH/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /root/HIH_Tiering/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/clean
+	cd /root/HIH/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,17 +168,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /root/HIH_Tiering/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/preinstall
+	cd /root/HIH/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /root/HIH_Tiering/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/preinstall
+	cd /root/HIH/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/concurrentqueue-build/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /root/HIH_Tiering/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /root/HIH/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -172,6 +192,8 @@ help:
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
+	@echo "... package"
+	@echo "... package_source"
 	@echo "... rebuild_cache"
 .PHONY : help
 
@@ -184,6 +206,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /root/HIH_Tiering/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /root/HIH/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

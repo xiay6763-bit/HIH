@@ -1,0 +1,12 @@
+# Target labels
+ pmem_rocksdb
+# Source files and their labels
+/root/HIH/build/benchmark/CMakeFiles/pmem_rocksdb
+/root/HIH/build/benchmark/CMakeFiles/pmem_rocksdb.rule
+/root/HIH/build/benchmark/CMakeFiles/pmem_rocksdb-complete.rule
+/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-build.rule
+/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-configure.rule
+/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-download.rule
+/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-install.rule
+/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-mkdir.rule
+/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-patch.rule

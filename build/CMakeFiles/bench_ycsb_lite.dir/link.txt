@@ -1,1 +1,1 @@
-/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/bench_ycsb_lite.dir/bench_ycsb_lite.cpp.o -o bench_ycsb_lite  -lpmem -lpmemobj -lpthread -lconcurrentqueue 
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/bench_ycsb_lite.dir/bench_ycsb_lite.cpp.o -o bench_ycsb_lite  -lpmem -lpmemobj -lpthread 

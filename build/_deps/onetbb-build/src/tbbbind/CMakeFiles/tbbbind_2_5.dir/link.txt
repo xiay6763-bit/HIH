@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -flto -fno-fat-lto-objects -Wl,--version-script="/root/HIH/build/_deps/onetbb-src/src/tbbbind/def/lin64-tbbbind.def" -Wl,-z,relro,-z,now,-z,noexecstack -shared -Wl,-soname,libtbbbind_2_5.so.3 -o ../../../../gnu_11.4_cxx17_64_release/libtbbbind_2_5.so.3.11 CMakeFiles/tbbbind_2_5.dir/tbb_bind.cpp.o  -ldl -lhwloc 

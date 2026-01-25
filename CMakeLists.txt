@@ -71,5 +71,5 @@ endif()
 # --- 增加 Zipfian 分布测试编译项 ---
 add_executable(bench_ycsb_zipf bench_ycsb_zipf.cpp)
 target_include_directories(bench_ycsb_zipf PRIVATE include)
-target_compile_options(bench_ycsb_zipf PRIVATE -march=native)
+target_compile_options(bench_ycsb_zipf PRIVATE -march=native -O3 -Ofast -mtune=native -mavx512f -mavx512vl)
 target_link_libraries(bench_ycsb_zipf PRIVATE pmem pthread)

@@ -3,4 +3,6 @@ results/
 .ipynb_checkpoints/
 venv/
 charts/
-__pycache__/
+__pycache__/build/
+data/
+results/

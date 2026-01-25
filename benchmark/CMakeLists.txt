@@ -47,7 +47,7 @@ endif()
 FetchContent_Declare(
         google_benchmark
         GIT_REPOSITORY https://github.com/google/benchmark.git
-        GIT_TAG v1.5.2
+        GIT_TAG v1.8.3
 )
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Suppressing benchmark's tests" FORCE)
 FetchContent_MakeAvailable(google_benchmark)
@@ -86,7 +86,7 @@ set(TBB_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_Declare(
         oneTBB
         GIT_REPOSITORY https://github.com/oneapi-src/oneTBB.git
-        GIT_TAG        v2021.1.1
+        GIT_TAG        v2021.11.0
 )
 FetchContent_MakeAvailable(oneTBB)
 include_directories(${oneTBB_SOURCE_DIR}/include)

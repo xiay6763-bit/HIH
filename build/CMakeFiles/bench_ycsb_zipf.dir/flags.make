@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/root/HIH/include
 
-CXX_FLAGS = -O3 -DNDEBUG -march=native
+CXX_FLAGS = -O3 -DNDEBUG -march=native -O3 -Ofast -mtune=native -mavx512f -mavx512vl
 

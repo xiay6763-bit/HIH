@@ -1,0 +1,11 @@
+# Hashes of file build rules.
+17429125d9ae1643b5970aeb5798fbcf _deps/pmemkv-build/CMakeFiles/check-license
+850a05f949b0df35f983efa98830d0d9 _deps/pmemkv-build/CMakeFiles/uninstall
+53a3f4dcf291e25bd4cd29188e539b93 benchmark/CMakeFiles/pmem_rocksdb
+344a71116820a7d19d8ea6bafa1822df benchmark/CMakeFiles/pmem_rocksdb-complete
+048620091f06e96a5a546567bf32cc02 benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-build
+17b3c699d3c0f02221723fd66adab031 benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-configure
+fbdce77da86bdd32a0d1207f95f660de benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-download
+0c44d6074d31268d08414f4a622a346a benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-install
+d137e285335a51780aaa0ad2b096ccfc benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-mkdir
+9e3ca9549d038513c4ddd0457ee15f07 benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-patch

@@ -166,7 +166,7 @@ void BaseFixture::generate_strings(size_t num_strings, size_t key_size, size_t v
 
 bool is_init_thread(const benchmark::State& state) {
     // Use idx = 1 because 0 starts all threads first before continuing.
-    return state.threads == 1 || state.thread_index == 1;
+    return state.threads() == 1 || state.thread_index() == 1;
 }
 
 void set_cpu_affinity(const uint16_t from, const uint16_t to) {

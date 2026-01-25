@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/CMakeFiles/pmemkv-populate"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/CMakeFiles/pmemkv-populate.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/CMakeFiles/pmemkv-populate-complete.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-build.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-configure.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-download.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-install.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-mkdir.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-patch.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-test.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/pmemkv-subbuild/pmemkv-populate-prefix/src/pmemkv-populate-stamp/pmemkv-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"pmemkv-populate"
+		],
+		"name" : "pmemkv-populate"
+	}
+}

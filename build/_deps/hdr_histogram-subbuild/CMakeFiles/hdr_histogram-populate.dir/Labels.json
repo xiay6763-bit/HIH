@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/CMakeFiles/hdr_histogram-populate"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/CMakeFiles/hdr_histogram-populate.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/CMakeFiles/hdr_histogram-populate-complete.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-build.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-configure.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-download.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-install.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-mkdir.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-patch.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-test.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/hdr_histogram-subbuild/hdr_histogram-populate-prefix/src/hdr_histogram-populate-stamp/hdr_histogram-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"hdr_histogram-populate"
+		],
+		"name" : "hdr_histogram-populate"
+	}
+}

@@ -375,9 +375,9 @@ class Viper {
         std::vector<CacheEntry> dram_cache_{CACHE_SIZE};
 
         void invalidate_cache(const K& key) {
-            size_t bucket = std::hash<K>{}(key) % CACHE_SIZE;
+            size_t bucket = cceh::h(&key, sizeof(K)) % CACHE_SIZE;
             if (dram_cache_[bucket].occupied && 
-                memcmp(dram_cache_[bucket].key_buf, key.data(), std::min(key.size(), 16UL)) == 0) {
+                memcmp(dram_cache_[bucket].key_buf, (const char*)&key, std::min(sizeof(K), 16UL)) == 0) {
                 dram_cache_[bucket].occupied = false;
             }
         }
@@ -1132,7 +1132,7 @@ bool Viper<std::string, std::string>::Client::put(const std::string& key, const 
             // 0 size indicates value is on next page.
             entry.value_size = 0;
             entry.data = key_insert_pos + meta_size;
-            memcpy(entry.data, key.data(), entry.key_size);
+            memcpy(entry.data, (const char*)&key, entry.key_size);
             memcpy(key_insert_pos, &entry.size_info, meta_size);
             internal::pmem_persist(key_insert_pos, meta_size + entry.key_size);
 
@@ -1164,7 +1164,7 @@ bool Viper<std::string, std::string>::Client::put(const std::string& key, const 
         // Entire record fits into current page.
         entry.data = insert_pos + meta_size;
         memcpy(insert_pos, &entry.size_info, meta_size);
-        memcpy(entry.data, key.data(), entry.key_size);
+        memcpy(entry.data, (const char*)&key, entry.key_size);
         memcpy(entry.data + entry.key_size, value.data(), entry.value_size);
         internal::pmem_persist(insert_pos, meta_size + entry_length);
         v_page_->next_insert_offset += meta_size + entry_length;
@@ -1213,8 +1213,8 @@ bool Viper<K, V>::Client::put(const K& key, const V& value) {
 template <typename K, typename V>
 bool Viper<K, V>::Client::get(const K& key, V* value) {
     // --- 创新点 2 改动: DRAM Fast Path (热点数据直接从内存返回，绕过 PMem) ---
-    size_t bucket = std::hash<K>{}(key) % CACHE_SIZE;
-    if (dram_cache_[bucket].occupied && memcmp(dram_cache_[bucket].key_buf, key.data(), std::min(key.size(), 16UL)) == 0) {
+    size_t bucket = cceh::h(&key, sizeof(K)) % CACHE_SIZE;
+    if (dram_cache_[bucket].occupied && memcmp(dram_cache_[bucket].key_buf, (const char*)&key, std::min(sizeof(K), 16UL)) == 0) {
         *value = dram_cache_[bucket].value;
         return true; 
     }
@@ -1232,7 +1232,7 @@ bool Viper<K, V>::Client::get(const K& key, V* value) {
             // --- 创新点 2 改动: Cache Promotion (将 PMem 读到的热数据搬运至 DRAM) ---
             dram_cache_[bucket].occupied = true;
             dram_cache_[bucket].value = *value;
-            memcpy(dram_cache_[bucket].key_buf, key.data(), std::min(key.size(), 16UL));
+            memcpy(dram_cache_[bucket].key_buf, (const char*)&key, std::min(sizeof(K), 16UL));
             return true;
         }
     }

@@ -1,0 +1,25 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_encoding.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_encoding.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_encoding.c.o.d"
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_histogram.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_histogram.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_histogram.c.o.d"
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_histogram_log.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_histogram_log.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_histogram_log.c.o.d"
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_interval_recorder.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_interval_recorder.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_interval_recorder.c.o.d"
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_thread.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_thread.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_thread.c.o.d"
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_time.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_time.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_time.c.o.d"
+  "/root/HIH/build/_deps/hdr_histogram-src/src/hdr_writer_reader_phaser.c" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_writer_reader_phaser.c.o" "gcc" "_deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/hdr_writer_reader_phaser.c.o.d"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

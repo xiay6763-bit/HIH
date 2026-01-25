@@ -1,0 +1,40 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/root/HIH/build/benchmark/CMakeFiles/pmem_rocksdb"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/CMakeFiles/pmem_rocksdb.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/CMakeFiles/pmem_rocksdb-complete.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-build.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-configure.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-download.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-install.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-mkdir.rule"
+		},
+		{
+			"file" : "/root/HIH/build/benchmark/pmem-rocksdb/src/pmem_rocksdb-stamp/pmem_rocksdb-patch.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"pmem_rocksdb"
+		],
+		"name" : "pmem_rocksdb"
+	}
+}

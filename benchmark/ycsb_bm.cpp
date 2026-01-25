@@ -21,7 +21,7 @@
 
 using namespace viper::kv_bm;
 
-static constexpr char BASE_DIR[] = "/mnt/nvme2/viper";
+static constexpr char BASE_DIR[] = "/root/HIH/data";
 static constexpr char PREFILL_FILE[] = "/ycsb_prefill.dat";
 
 #define GENERAL_ARGS \
@@ -60,7 +60,7 @@ static std::vector<ycsb::Record> data_zipf_10_90;
 
 void ycsb_run(benchmark::State& state, BaseFixture& fixture, std::vector<ycsb::Record>* data,
               const std::filesystem::path& wl_file, bool log_latency) {
-    set_cpu_affinity(state.thread_index);
+    set_cpu_affinity(state.thread_index());
 
     if (is_init_thread(state)) {
         fixture.InitMap();
@@ -86,8 +86,8 @@ void ycsb_run(benchmark::State& state, BaseFixture& fixture, std::vector<ycsb::R
     for (auto _ : state) {
         // Need to do this in here as data might not be loaded yet.
         const uint64_t num_total_ops = data->size();
-        const uint64_t num_ops_per_thread = num_total_ops / state.threads;
-        start_idx = state.thread_index * num_ops_per_thread;
+        const uint64_t num_ops_per_thread = num_total_ops / state.threads();
+        start_idx = state.thread_index() * num_ops_per_thread;
         end_idx = start_idx + num_ops_per_thread;
 
         // Actual benchmark

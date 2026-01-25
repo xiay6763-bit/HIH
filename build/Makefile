@@ -65,6 +65,26 @@ CMAKE_BINARY_DIR = /root/HIH/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	/usr/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+.PHONY : package/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /root/HIH/build/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+.PHONY : package_source/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -84,6 +104,51 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\" \"devel\" \"runtime\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -142,6 +207,331 @@ bench_ycsb_zipf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bench_ycsb_zipf.dir/build.make CMakeFiles/bench_ycsb_zipf.dir/build
 .PHONY : bench_ycsb_zipf/fast
 
+#=============================================================================
+# Target rules for targets named pmem_rocksdb
+
+# Build rule for target.
+pmem_rocksdb: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pmem_rocksdb
+.PHONY : pmem_rocksdb
+
+# fast build rule for target.
+pmem_rocksdb/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/pmem_rocksdb.dir/build.make benchmark/CMakeFiles/pmem_rocksdb.dir/build
+.PHONY : pmem_rocksdb/fast
+
+#=============================================================================
+# Target rules for targets named all_ops_bm
+
+# Build rule for target.
+all_ops_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all_ops_bm
+.PHONY : all_ops_bm
+
+# fast build rule for target.
+all_ops_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/all_ops_bm.dir/build.make benchmark/CMakeFiles/all_ops_bm.dir/build
+.PHONY : all_ops_bm/fast
+
+#=============================================================================
+# Target rules for targets named update_bm
+
+# Build rule for target.
+update_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 update_bm
+.PHONY : update_bm
+
+# fast build rule for target.
+update_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/update_bm.dir/build.make benchmark/CMakeFiles/update_bm.dir/build
+.PHONY : update_bm/fast
+
+#=============================================================================
+# Target rules for targets named recovery_bm
+
+# Build rule for target.
+recovery_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 recovery_bm
+.PHONY : recovery_bm
+
+# fast build rule for target.
+recovery_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/recovery_bm.dir/build.make benchmark/CMakeFiles/recovery_bm.dir/build
+.PHONY : recovery_bm/fast
+
+#=============================================================================
+# Target rules for targets named reclaim_bm
+
+# Build rule for target.
+reclaim_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 reclaim_bm
+.PHONY : reclaim_bm
+
+# fast build rule for target.
+reclaim_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/reclaim_bm.dir/build.make benchmark/CMakeFiles/reclaim_bm.dir/build
+.PHONY : reclaim_bm/fast
+
+#=============================================================================
+# Target rules for targets named kv_size_bm
+
+# Build rule for target.
+kv_size_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kv_size_bm
+.PHONY : kv_size_bm
+
+# fast build rule for target.
+kv_size_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/kv_size_bm.dir/build.make benchmark/CMakeFiles/kv_size_bm.dir/build
+.PHONY : kv_size_bm/fast
+
+#=============================================================================
+# Target rules for targets named variable_size_bm
+
+# Build rule for target.
+variable_size_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 variable_size_bm
+.PHONY : variable_size_bm
+
+# fast build rule for target.
+variable_size_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/variable_size_bm.dir/build.make benchmark/CMakeFiles/variable_size_bm.dir/build
+.PHONY : variable_size_bm/fast
+
+#=============================================================================
+# Target rules for targets named ycsb_bm
+
+# Build rule for target.
+ycsb_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ycsb_bm
+.PHONY : ycsb_bm
+
+# fast build rule for target.
+ycsb_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/ycsb_bm.dir/build.make benchmark/CMakeFiles/ycsb_bm.dir/build
+.PHONY : ycsb_bm/fast
+
+#=============================================================================
+# Target rules for targets named latency_bw_bm
+
+# Build rule for target.
+latency_bw_bm: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 latency_bw_bm
+.PHONY : latency_bw_bm
+
+# fast build rule for target.
+latency_bw_bm/fast:
+	$(MAKE) $(MAKESILENT) -f benchmark/CMakeFiles/latency_bw_bm.dir/build.make benchmark/CMakeFiles/latency_bw_bm.dir/build
+.PHONY : latency_bw_bm/fast
+
+#=============================================================================
+# Target rules for targets named benchmark
+
+# Build rule for target.
+benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark
+.PHONY : benchmark
+
+# fast build rule for target.
+benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/google_benchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/google_benchmark-build/src/CMakeFiles/benchmark.dir/build
+.PHONY : benchmark/fast
+
+#=============================================================================
+# Target rules for targets named benchmark_main
+
+# Build rule for target.
+benchmark_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark_main
+.PHONY : benchmark_main
+
+# fast build rule for target.
+benchmark_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/google_benchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/google_benchmark-build/src/CMakeFiles/benchmark_main.dir/build
+.PHONY : benchmark_main/fast
+
+#=============================================================================
+# Target rules for targets named tbb
+
+# Build rule for target.
+tbb: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tbb
+.PHONY : tbb
+
+# fast build rule for target.
+tbb/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/onetbb-build/src/tbb/CMakeFiles/tbb.dir/build.make _deps/onetbb-build/src/tbb/CMakeFiles/tbb.dir/build
+.PHONY : tbb/fast
+
+#=============================================================================
+# Target rules for targets named tbbmalloc
+
+# Build rule for target.
+tbbmalloc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tbbmalloc
+.PHONY : tbbmalloc
+
+# fast build rule for target.
+tbbmalloc/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/onetbb-build/src/tbbmalloc/CMakeFiles/tbbmalloc.dir/build.make _deps/onetbb-build/src/tbbmalloc/CMakeFiles/tbbmalloc.dir/build
+.PHONY : tbbmalloc/fast
+
+#=============================================================================
+# Target rules for targets named tbbmalloc_proxy
+
+# Build rule for target.
+tbbmalloc_proxy: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tbbmalloc_proxy
+.PHONY : tbbmalloc_proxy
+
+# fast build rule for target.
+tbbmalloc_proxy/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/onetbb-build/src/tbbmalloc_proxy/CMakeFiles/tbbmalloc_proxy.dir/build.make _deps/onetbb-build/src/tbbmalloc_proxy/CMakeFiles/tbbmalloc_proxy.dir/build
+.PHONY : tbbmalloc_proxy/fast
+
+#=============================================================================
+# Target rules for targets named tbbbind_2_5
+
+# Build rule for target.
+tbbbind_2_5: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tbbbind_2_5
+.PHONY : tbbbind_2_5
+
+# fast build rule for target.
+tbbbind_2_5/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/onetbb-build/src/tbbbind/CMakeFiles/tbbbind_2_5.dir/build.make _deps/onetbb-build/src/tbbbind/CMakeFiles/tbbbind_2_5.dir/build
+.PHONY : tbbbind_2_5/fast
+
+#=============================================================================
+# Target rules for targets named pmemkv
+
+# Build rule for target.
+pmemkv: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pmemkv
+.PHONY : pmemkv
+
+# fast build rule for target.
+pmemkv/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/pmemkv.dir/build.make _deps/pmemkv-build/CMakeFiles/pmemkv.dir/build
+.PHONY : pmemkv/fast
+
+#=============================================================================
+# Target rules for targets named uninstall
+
+# Build rule for target.
+uninstall: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 uninstall
+.PHONY : uninstall
+
+# fast build rule for target.
+uninstall/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/uninstall.dir/build.make _deps/pmemkv-build/CMakeFiles/uninstall.dir/build
+.PHONY : uninstall/fast
+
+#=============================================================================
+# Target rules for targets named checkers
+
+# Build rule for target.
+checkers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 checkers
+.PHONY : checkers
+
+# fast build rule for target.
+checkers/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/checkers.dir/build.make _deps/pmemkv-build/CMakeFiles/checkers.dir/build
+.PHONY : checkers/fast
+
+#=============================================================================
+# Target rules for targets named cppstyle
+
+# Build rule for target.
+cppstyle: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cppstyle
+.PHONY : cppstyle
+
+# fast build rule for target.
+cppstyle/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/cppstyle.dir/build.make _deps/pmemkv-build/CMakeFiles/cppstyle.dir/build
+.PHONY : cppstyle/fast
+
+#=============================================================================
+# Target rules for targets named cppformat
+
+# Build rule for target.
+cppformat: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cppformat
+.PHONY : cppformat
+
+# fast build rule for target.
+cppformat/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/cppformat.dir/build.make _deps/pmemkv-build/CMakeFiles/cppformat.dir/build
+.PHONY : cppformat/fast
+
+#=============================================================================
+# Target rules for targets named check-whitespace
+
+# Build rule for target.
+check-whitespace: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 check-whitespace
+.PHONY : check-whitespace
+
+# fast build rule for target.
+check-whitespace/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/check-whitespace.dir/build.make _deps/pmemkv-build/CMakeFiles/check-whitespace.dir/build
+.PHONY : check-whitespace/fast
+
+#=============================================================================
+# Target rules for targets named check-license
+
+# Build rule for target.
+check-license: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 check-license
+.PHONY : check-license
+
+# fast build rule for target.
+check-license/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/pmemkv-build/CMakeFiles/check-license.dir/build.make _deps/pmemkv-build/CMakeFiles/check-license.dir/build
+.PHONY : check-license/fast
+
+#=============================================================================
+# Target rules for targets named faster
+
+# Build rule for target.
+faster: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 faster
+.PHONY : faster
+
+# fast build rule for target.
+faster/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/faster-build/src/CMakeFiles/faster.dir/build.make _deps/faster-build/src/CMakeFiles/faster.dir/build
+.PHONY : faster/fast
+
+#=============================================================================
+# Target rules for targets named hdr_histogram
+
+# Build rule for target.
+hdr_histogram: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hdr_histogram
+.PHONY : hdr_histogram
+
+# fast build rule for target.
+hdr_histogram/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram.dir/build.make _deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram.dir/build
+.PHONY : hdr_histogram/fast
+
+#=============================================================================
+# Target rules for targets named hdr_histogram_static
+
+# Build rule for target.
+hdr_histogram_static: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hdr_histogram_static
+.PHONY : hdr_histogram_static
+
+# fast build rule for target.
+hdr_histogram_static/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/build.make _deps/hdr_histogram-build/src/CMakeFiles/hdr_histogram_static.dir/build
+.PHONY : hdr_histogram_static/fast
+
 bench_ycsb_lite.o: bench_ycsb_lite.cpp.o
 .PHONY : bench_ycsb_lite.o
 
@@ -197,9 +587,40 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
+	@echo "... package"
+	@echo "... package_source"
 	@echo "... rebuild_cache"
+	@echo "... check-license"
+	@echo "... check-whitespace"
+	@echo "... checkers"
+	@echo "... cppformat"
+	@echo "... cppstyle"
+	@echo "... pmem_rocksdb"
+	@echo "... uninstall"
+	@echo "... all_ops_bm"
 	@echo "... bench_ycsb_lite"
 	@echo "... bench_ycsb_zipf"
+	@echo "... benchmark"
+	@echo "... benchmark_main"
+	@echo "... faster"
+	@echo "... hdr_histogram"
+	@echo "... hdr_histogram_static"
+	@echo "... kv_size_bm"
+	@echo "... latency_bw_bm"
+	@echo "... pmemkv"
+	@echo "... reclaim_bm"
+	@echo "... recovery_bm"
+	@echo "... tbb"
+	@echo "... tbbbind_2_5"
+	@echo "... tbbmalloc"
+	@echo "... tbbmalloc_proxy"
+	@echo "... update_bm"
+	@echo "... variable_size_bm"
+	@echo "... ycsb_bm"
 	@echo "... bench_ycsb_lite.o"
 	@echo "... bench_ycsb_lite.i"
 	@echo "... bench_ycsb_lite.s"

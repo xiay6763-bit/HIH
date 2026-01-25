@@ -1,0 +1,108 @@
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32 failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_1661f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_1661f.dir/build.make CMakeFiles/cmTC_1661f.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_1661f.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WSHORTEN_64_TO_32  -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32   -Wshorten-64-to-32 -std=c++11 -o CMakeFiles/cmTC_1661f.dir/src.cxx.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wshorten-64-to-32'
+c++: error: unrecognized command-line option '-Wshorten-64-to-32'
+gmake[1]: *** [CMakeFiles/cmTC_1661f.dir/build.make:78: CMakeFiles/cmTC_1661f.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_1661f/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WD654 failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_6f0ba/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6f0ba.dir/build.make CMakeFiles/cmTC_6f0ba.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_6f0ba.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WD654  -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -wd654   -wd654 -std=c++11 -o CMakeFiles/cmTC_6f0ba.dir/src.cxx.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-wd654'
+c++: error: unrecognized command-line option '-wd654'
+gmake[1]: *** [CMakeFiles/cmTC_6f0ba.dir/build.make:78: CMakeFiles/cmTC_6f0ba.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_6f0ba/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WTHREAD_SAFETY failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_3b713/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_3b713.dir/build.make CMakeFiles/cmTC_3b713.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_3b713.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WTHREAD_SAFETY  -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety   -Wthread-safety -std=c++11 -o CMakeFiles/cmTC_3b713.dir/src.cxx.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wthread-safety'
+c++: error: unrecognized command-line option '-Wthread-safety'
+gmake[1]: *** [CMakeFiles/cmTC_3b713.dir/build.make:78: CMakeFiles/cmTC_3b713.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_3b713/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wunreachable_code_return failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_679c8/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_679c8.dir/build.make CMakeFiles/cmTC_679c8.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_679c8.dir/src.c.o
+/usr/bin/cc -DC_HAS__Wunreachable_code_return  -Wall -Wpointer-arith -Wsign-compare    -Wunreachable-code-return -o CMakeFiles/cmTC_679c8.dir/src.c.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command-line option '-Wunreachable-code-return'; did you mean '-Wunreachable-code'?
+gmake[1]: *** [CMakeFiles/cmTC_679c8.dir/build.make:78: CMakeFiles/cmTC_679c8.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_679c8/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wunreachable_code_return failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_42e6c/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_42e6c.dir/build.make CMakeFiles/cmTC_42e6c.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_42e6c.dir/src.cxx.o
+/usr/bin/c++ -DCXX_HAS__Wunreachable_code_return  -Wall -Wpointer-arith -Wsign-compare    -Wunreachable-code-return -std=gnu++11 -o CMakeFiles/cmTC_42e6c.dir/src.cxx.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wunreachable-code-return'; did you mean '-Wunreachable-code'?
+gmake[1]: *** [CMakeFiles/cmTC_42e6c.dir/build.make:78: CMakeFiles/cmTC_42e6c.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_42e6c/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wmissing_variable_declarations failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_7ea33/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7ea33.dir/build.make CMakeFiles/cmTC_7ea33.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7ea33.dir/src.c.o
+/usr/bin/cc -DC_HAS__Wmissing_variable_declarations  -Wall -Wpointer-arith -Wsign-compare    -Wmissing-variable-declarations -o CMakeFiles/cmTC_7ea33.dir/src.c.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command-line option '-Wmissing-variable-declarations'; did you mean '-Wmissing-declarations'?
+gmake[1]: *** [CMakeFiles/cmTC_7ea33.dir/build.make:78: CMakeFiles/cmTC_7ea33.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_7ea33/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wmissing_variable_declarations failed with the following output:
+Change Dir: /root/HIH/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_255fa/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_255fa.dir/build.make CMakeFiles/cmTC_255fa.dir/build
+gmake[1]: Entering directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_255fa.dir/src.cxx.o
+/usr/bin/c++ -DCXX_HAS__Wmissing_variable_declarations  -Wall -Wpointer-arith -Wsign-compare    -Wmissing-variable-declarations -std=gnu++11 -o CMakeFiles/cmTC_255fa.dir/src.cxx.o -c /root/HIH/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wmissing-variable-declarations'; did you mean '-Wmissing-declarations'?
+gmake[1]: *** [CMakeFiles/cmTC_255fa.dir/build.make:78: CMakeFiles/cmTC_255fa.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/root/HIH/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_255fa/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }

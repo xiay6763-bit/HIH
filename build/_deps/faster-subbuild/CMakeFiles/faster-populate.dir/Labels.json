@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/CMakeFiles/faster-populate"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/CMakeFiles/faster-populate.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/CMakeFiles/faster-populate-complete.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-build.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-configure.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-download.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-install.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-mkdir.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-patch.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-test.rule"
+		},
+		{
+			"file" : "/root/HIH/build/_deps/faster-subbuild/faster-populate-prefix/src/faster-populate-stamp/faster-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"faster-populate"
+		],
+		"name" : "faster-populate"
+	}
+}
